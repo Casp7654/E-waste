@@ -13,7 +13,7 @@ Projekt start: 11. apr. 2023
 
 Projekt afslutning: 8. maj 2023
 
-Udarbejdet af [Casper Andersen](https://github.com/Casp7654) og [Kevin Frost](https://github.com/keviner123)
+Udarbejdet af [Casper Andersen](https://github.com/ndersorn) og [Kevin Frost](https://github.com/keviner123)
 
 ## Rapporter
 * [Procesrapport](https://github.com/Casp7654/E-waste/blob/main/E-Scrap%20Solution%20_%20Procesrapport.pdf)
