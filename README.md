@@ -14,7 +14,7 @@ Projekt start: 11. apr. 2023
 
 Projekt afslutning: 8. maj 2023
 
-Udarbejdet af [Casp7654(Ndersorn)](https://github.com/Casp7654) og [keviner123](https://github.com/keviner123)
+Udarbejdet af [Casper Andersen](https://github.com/ndersorn) og [Kevin Frost](https://github.com/keviner123)
 
 ## Rapporter
 
