@@ -1,0 +1,18 @@
+---
+// Layout
+import DefaultLayout from "./../layouts/DefaultLayout.astro";
+
+// Page Info
+let page = {
+  title: "Index",
+  link: "/",
+};
+---
+
+<DefaultLayout page={page}>
+  {/* IF logged in */}
+  <script is:inline>
+    window.location.href = "/components";
+  </script>
+  {/* else login */}
+</DefaultLayout>

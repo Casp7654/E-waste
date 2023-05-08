@@ -1,0 +1,18 @@
+@startuml FlowChart - Api: Initialization
+title FlowChart - Api: Initialization
+
+start
+:Read Environment File;
+
+if (Can connect to database?) then (yes)
+    :Set Middleware;
+    :Setup CORS;
+    :Set Router paths;
+    :Start Listening for events on IP:PORT;
+    detach
+else (no)
+    :Display error message;
+    stop
+endif
+
+@enduml

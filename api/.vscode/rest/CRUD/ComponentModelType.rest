@@ -1,0 +1,32 @@
+GET http://localhost:8080/types HTTP/2.0
+content-type: application/json
+
+###
+
+POST http://localhost:8080/types HTTP/2.0
+content-type: application/json
+
+{
+    "title":"testType"
+}
+
+###
+
+GET http://localhost:8080/types/1 HTTP/2.0
+content-type: application/json
+
+###
+
+PUT http://localhost:8080/types/1 HTTP/2.0
+content-type: application/json
+
+{
+    "title":"testTypeEdited"
+}
+
+###
+
+DELETE http://localhost:8080/types/1 HTTP/2.0
+content-type: application/json
+
+###

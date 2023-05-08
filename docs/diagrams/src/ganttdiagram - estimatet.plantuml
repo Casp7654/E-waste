@@ -1,0 +1,46 @@
+@startgantt Gantt Diagram - Estimetet
+title Gantt Diagram - Estimetet
+
+Project starts 2023-04-11
+saturday is colored in #f1e5e5
+sunday is colored in #f1e5e5
+'hide footbox
+<style>
+ganttDiagram {
+    arrow {
+        LineColor grey
+    }
+}
+</style>
+[Project Start] as [start] happens at 2023-04-11
+
+[Idea generation] as [idea] lasts 4 days
+[Research] as [research] starts d+6 and lasts 5 days
+[Documenation week] as [dweek] starts d+13 and lasts 5 days
+
+
+[Library & Framework testing] as [lib] starts D+6 and lasts 2 days
+[System designing] as [sd] lasts 2 days
+[Unit test creation] as [ut] lasts 1 days
+
+[Status meeting] as [meet] happens at d+13
+[Build Proof-of-Concept] as [poc] starts d+20 and lasts 4 days
+[Documentation polishment] as [polish] lasts 4 days
+[Project end] as [end] happens at 2023-05-8
+[Presentation preporation] as [prep] starts at d+28 and lasts 4 days
+[Presentation] starts at d+34 and lasts 1 days
+
+[idea]->[research]
+
+[idea]->[lib]
+[lib]->[sd]
+[sd]->[ut]
+
+[poc]->[polish]
+[prep]->[Presentation]
+
+[meet] displays on same row as [start]
+[end] displays on same row as [start]
+
+
+@endgantt

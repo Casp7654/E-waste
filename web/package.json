@@ -1,0 +1,23 @@
+{
+  "name": "ess-regapp-web",
+  "description": "E-Scrap Solutions: Backend Web Application",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "dev": "astro dev",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "admin-lte": "^3.2.0",
+    "astro": "^2.3.0",
+    "chart.js": "^4.2.1",
+    "sass": "^1.62.0",
+    "svelte-chartjs": "^3.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11"
+  }
+}

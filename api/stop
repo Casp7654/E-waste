@@ -1,0 +1,1 @@
+docker compose --file env.dockerfile.yml down

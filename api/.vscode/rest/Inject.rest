@@ -1,0 +1,19 @@
+GET http://localhost:8080/inject/login HTTP/2.0
+content-type: application/json
+
+###
+
+GET http://localhost:8080/inject/components HTTP/2.0
+content-type: application/json
+
+###
+
+GET http://localhost:8080/inject/placement HTTP/2.0
+content-type: application/json
+
+###
+
+GET http://localhost:8080/inject/recyclability HTTP/2.0
+content-type: application/json
+
+###

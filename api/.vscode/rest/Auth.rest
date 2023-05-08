@@ -1,0 +1,17 @@
+POST http://localhost:8080/auth/login HTTP/2.0
+content-type: application/json
+
+{
+    "email":"hest@example.com",
+    "password":"hestetest"
+}
+
+###
+
+POST http://localhost:8080/auth/login/static HTTP/2.0
+content-type: application/json
+
+{
+    "hash":"HWKJERGSDGJFDSIGSFDM",
+    "secret":"hestetest"
+}

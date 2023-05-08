@@ -1,0 +1,27 @@
+---
+// Import Module
+import Chart from "./../modules/Chart.astro";
+
+// Import ChartTypes
+import { ChartInfo, ChartConfig, generateChartConfig } from "./../types/ChartTypes";
+
+// Set Info
+const info: ChartInfo = {
+  selector: 'component-types',
+  description: "Components by Type",
+  type: "bar",
+  endpoint: `/overview/dataset`,
+  maxHeight:"300px",
+};
+
+// GenerateCartConfig with options
+const config: ChartConfig = generateChartConfig(info, {
+  scales: {
+    y: {
+      beginAtZero: true,
+    },
+  },
+});
+---
+
+<Chart info={info} config={config} />

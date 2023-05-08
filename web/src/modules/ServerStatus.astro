@@ -1,0 +1,33 @@
+---
+// Import makeRequest library
+import { makeRequest } from "./../lib/makeRequest";
+
+// If Component should print status message
+const { shouldHide } = Astro.props;
+
+// ping server
+const baseUrl: string = `${import.meta.env?.API_PROTOCOL}://${import.meta.env?.API_HOST}:${import.meta.env?.API_PORT}`;
+
+let response: Response = await makeRequest("GET", `${baseUrl}/`);
+
+let isConnected: boolean = response?.status === 200 ? true : false;
+---
+
+{
+  shouldHide === true ? (
+    ""
+  ) : (
+    <p class={isConnected ? "c-green" : "c-red"}>Is {isConnected ? "Connected to " + baseUrl : "NOT Connected"}</p>
+  )
+}
+
+<style lang="scss">
+  p {
+    &.c-green {
+      color: green;
+    }
+    &.c-red {
+      color: red;
+    }
+  }
+</style>

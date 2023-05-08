@@ -1,0 +1,2 @@
+docker compose --file env.dockerfile.yml build 
+docker compose --file ./env.dockerfile.yml up $@

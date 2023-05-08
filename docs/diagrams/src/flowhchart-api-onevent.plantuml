@@ -1,0 +1,35 @@
+@startuml FlowChart - Api: onEvents
+title FlowChart - Api: onEvents
+
+repeat :Server is listening for events;
+
+:when event path is hit;
+
+if(Request can pass CORS?) then (yes)
+else (no)
+    #pink:Respond 401 with error;
+    detach
+endif
+
+:log request info;
+
+if (Request requires parameters?) then (yes)
+    if (Are parameters valid?) then (yes)
+    else (no)
+        #pink:return 204 response;
+        detach
+    endif
+else (no)
+endif
+
+:Use Repository to get entities from DataSource;
+:Create model classes;
+:Encode models as JSON;
+#palegreen:return 200  response
+with JSON data;
+
+repeat while (Server is still running?) is (yes)
+->no;
+stop
+
+@enduml

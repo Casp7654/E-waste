@@ -1,0 +1,80 @@
+---
+// Import Types
+import type { TableInfo } from "../types/TableTypes";
+
+// Set Astro Prop interface to type
+interface Props {
+  info: TableInfo;
+}
+
+// deconstruct Astro Props
+const { info } = Astro.props;
+
+// Set Endpoint BaseUrl form environment variables
+const baseUrl: string = `${import.meta.env?.API_PROTOCOL}://${import.meta.env?.API_HOST}:${import.meta.env?.API_PORT}`;
+
+// override endpoint with baseUrl
+info.endpoint = `${baseUrl}${info.endpoint}`;
+---
+
+{/* Client-side functions */}
+<script is:inline type="module" define:vars={{ info: info }}>
+  import { getData } from "./js/lib/apiRequests.js";
+  import { fillBody, fillHeader } from "./js/TableFunctions.mjs";
+
+  // set Execute Function
+  const executeFunction = async (info) => {
+    const data = await getData(info);
+    //setSpinner(info.selector);
+    fillHeader(info.selector, data.labels);
+    fillBody(info.selector, data.values);
+    executeLoop(info);
+    return;
+  };
+
+  // Set loop function
+  const executeLoop = (info) =>
+    setTimeout(
+      () => {
+        executeFunction(info);
+      },
+      (info.refreshInterval || 5) * 1000,
+      info
+    );
+  // Execute
+  executeLoop(info);
+</script>
+
+{/* Output Table */}
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">{info.description}</h3>
+    <div class="card-tools">
+      <div class="input-group">
+        <span class="input-group-prepend">
+          <span class="input-group-text">RefreshRate in seconds</span>
+        </span>
+        <input
+          type="number"
+          class="form-control"
+          value={info.refreshInterval || 5}
+          id={`${info.selector}-container-refreshRate`}
+          style="max-width:100px;"
+        />
+        <span class="input-group-append">
+          <button id={`${info.selector}-container-refreshRate-btn`} class="btn btn-block btn-info">Refresh</button>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body table-responsive p-0">
+    <table id={info.selector} class="table table-hover text-nowrap">
+      <thead id={`${info.selector}-header`}></thead>
+      <tbody id={`${info.selector}-body`}></tbody>
+    </table>
+  </div>
+
+  <div class="card-footer"></div>
+</div>
+{/* Ouput error */}

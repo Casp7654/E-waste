@@ -1,0 +1,55 @@
+@startgantt Gantt Diagram - Realized
+title Gantt Diagram - Realized
+
+Project starts 2023-04-11
+saturday is colored in #f1e5e5
+sunday is colored in #f1e5e5
+'hide footbox
+<style>
+ganttDiagram {
+    arrow {
+        LineColor grey
+    }
+}
+</style>
+
+[Project Start] as [start] happens at 2023-04-11
+[Status meeting] as [meet] happens at d+13
+[Project end] as [end] happens at 2023-05-08
+
+[Idea generation] as [idea] lasts 2 days
+
+[Documentation preface] as [docstart] lasts 2 days
+
+[Research] as [research] lasts 5 days
+
+[Documenation week] as [dweek] starts d+13 and lasts 5 days
+
+[Lib & framework test] as [lib] starts d+3 and lasts 3 days
+[System designing] as [sd] lasts 3 days
+[Unit test creation] as [ut] starts D+8 and lasts 1 days
+
+[PoC part1] as [poc1] starts at d+9 and lasts 2 days
+
+
+[PoC part2] as [poc2] starts at d+20 and lasts 3 days
+
+[Finish documentation] as [polish] lasts 5 days
+[Presentation preporation] as [prep] lasts 4 days
+[Presentation] starts at d+34 and lasts 1 days
+
+[idea]->[docstart]
+[idea]->[research]
+[lib]->[sd]
+[ut]->[poc1]
+[sd]->[poc1]
+
+[poc2]->[polish]
+[polish]->[prep]
+[prep]->[Presentation]
+
+[poc2] displays on same row as [poc1]
+[meet] displays on same row as [start]
+[end] displays on same row as [start]
+
+@endgantt

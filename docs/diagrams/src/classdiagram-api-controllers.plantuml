@@ -1,0 +1,92 @@
+@startuml Class diagram - Api: Controllers
+
+title "Class diagram - Api: Controllers"
+
+'skinparam groupInheritance 2
+hide circle
+'skinparam linetype ortho
+
+'left to right direction
+
+package "E-Scrap Solutions" {
+
+    package "Controllers"<<Rectangle>> {
+
+        interface RouteConfig <<Interface>> {
+            method: string
+            path: string
+            callback: function
+        }
+
+        abstract Controller <<Abstract Class>> {
+            #routes: RouteConfig[]
+            +get routes: RouteConfig[]
+            ---
+            +constructor()
+            {abstract} #initialize(): void
+            #addRoute(RouteConfig): void
+        }
+
+        class DefaultController <<Class>> {
+            ---
+            #initialize(): void
+            +index(request,response): void
+        }
+
+        class AuthController <<Class>> {
+            ---
+            #initialize(): void
+            +login(request, response): void
+            +loginStatic(request, response): void
+        }
+
+        RouteConfig --o Controller: "<<has>>"
+        Controller <|-- DefaultController: "<<implements>>"
+        Controller <|-- AuthController: "<<implements>>"
+
+        package "CrudControllers" <<Rectangle>> {
+
+            abstract CrudController <<Abstract Class>> {
+                #initialize(): void
+                {abstract} +index(request, response): void
+                {abstract} +create(request, response): void
+                {abstract} +read(request, response): void
+                {abstract} +update(request, response): void
+                {abstract} +delete(request, response): void
+            }
+
+            class "<i>Entity</i><sup>*</sup>CrudController" as EntityCrudController <<Class>> {
+                +index(request, response): void
+                +create(request, response): void
+                +read(request, response): void
+                +update(request, response): void
+                +delete(request, response): void
+            }
+
+            Controller <|--- CrudController: "<<implements>>"
+            CrudController <|--- EntityCrudController: "<<implements>>"
+
+        }
+
+        class ComponentController <<Class>> {
+            #initialize(): void
+            +getAll(request, response): void
+            +getById(request, response): void
+            +updateById(request, response): void
+            +getByModelId(request, response): void
+            +getByTypeId(request, response): void
+            +getByPlacementId(request, response): void
+        }
+
+        Controller <|-- ComponentController: "<<implements>>"
+
+
+        class OverviewController <<Class>> {
+            #initialize(): void
+            +getTableData(request, response): void
+            +getDatasetData(request, response): void
+        }
+        Controller <|-- OverviewController: "<<implements>>"
+    }
+}
+@enduml

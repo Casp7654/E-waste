@@ -1,0 +1,139 @@
+@startuml Class diagram - Api: Entities
+
+title "Class diagram - Api: Entities"
+
+skinparam groupInheritance 2
+hide circle
+skinparam linetype ortho
+
+
+'left to right direction
+
+package "E-Scrap Solutions" {
+    package "Entities" <<Rectangle>> #line.dotted:black;header:grey {
+        package "Component" <<Rectangle>> #line.dotted:grey;header:grey {
+            entity Placement <<Entity>> {
+                #id: integer
+                #title: string
+            }
+            entity ComponentUnit <<Entity>> {
+                #id: integer
+                #model_id: integer
+                #placement_id: integer
+                #guid: string
+                #weight: float
+            }
+            entity ComponentModel <<Entity>> {
+                #id: integer
+                #title: string
+                #placement_id: integer
+                #type_id: integer
+            }
+            entity ComponentType <<Entity>> {
+                #id: integer
+                #title: string
+            }
+            ComponentModel o-- Placement: "<<has>>"
+            ComponentUnit o-- ComponentModel: "<<has>>"
+            ComponentModel o-- ComponentType: "<<has>>"
+            ComponentUnit o-- Placement: "<<has>>"
+        }
+        package "Resellability" <<Rectangle>> #line.dotted:grey;header:grey {
+            entity TestDefinition <<Entity>> {
+                #id: integer
+                #title: string
+                #model_id: integer
+                #required_score: integer
+                #margin_value: integer
+            }
+            entity TestReport <<Entity>> {
+                #id: integer
+                #test_id: integer
+                #unit_id: integer
+                #score: integer
+                #pass: bool
+            }
+            TestReport o-- ComponentUnit: "<<has>>"
+            TestDefinition o-- ComponentModel: "<<has>>"
+            TestReport o-- TestDefinition: "<<has>>"
+        }
+        package "Recyclability" <<Rectangle>> #line.dotted:grey;header:grey {
+            entity RecycleValue <<Entity>> {
+                #id: integer
+                #material_id: integer
+                #model_id: integer
+                #weight: float
+            }
+            entity RecycleMaterial <<Entity>> {
+                #id: integer
+                #title: string
+                #weight_value: float
+            }
+            RecycleValue o-- RecycleMaterial: "<<has>>"
+            RecycleValue o-- ComponentModel: "<<has>>"
+        }
+        package "Repurposability" <<Rectangle>>  #line.dotted:grey;header:grey {
+            entity RepurposeValue <<Entity>> {
+                #id: integer
+                #model_id: string
+                #value: float
+            }
+            RepurposeValue o-- ComponentModel: "<<has>>"
+        }
+    }
+    package "ViewModels" <<Rectangle>> #line.dotted:black;header:grey {
+        struct TestResult <<TypeDef>> {
+            #title: string
+            #required_score: integer
+            #margin_value: integer
+            #score: integer
+            #pass: bools
+        }
+        struct MaterialValue <<TypeDef>> {
+            #material: string
+            #weight: float
+            #value: float
+        }
+        abstract ResellableComponent <<TypeDef>> {
+            TestResults: TestResult[]
+            ---
+            didPassAllTests(): bool
+            getTotalTestScore(): integer
+            getTotalTestScoreAcheivable(): integer
+        }
+        abstract RecyclableComponent <<TypeDef>> {
+            materialValues: MaterialValue[]
+            ---
+            getValue(): float
+        }
+        abstract RepurposableComponent <<TypeDef>> {
+            value: float
+        }
+        abstract Component <<TypeDef>> {
+            #id: integer
+            #guid: integer
+            #type: string
+            #model: string
+            #placement: string
+            #weight: float
+            ---
+            +getModel(): Model;
+            +getType(): Type;
+        }
+
+
+        MaterialValue <.. RecycleValue: "<<is>>"
+        MaterialValue --o RecyclableComponent: "<<has>>"
+
+        TestResult <.. TestReport: "<<is>>"
+        TestResult --o ResellableComponent: "<<has>>"
+        
+        RepurposableComponent o-- RepurposeValue: "<<has>>"
+
+        RecyclableComponent <.. Component: "<<is>>"
+        ResellableComponent <.. Component: "<<is>>"
+        RepurposableComponent <.. Component: "<<is>>"
+        Component <.. ComponentUnit: "<<is>>"
+    }
+}
+@enduml

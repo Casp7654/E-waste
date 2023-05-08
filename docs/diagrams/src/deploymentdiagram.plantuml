@@ -1,0 +1,76 @@
+@startuml Deployment Diagram
+
+title "Deployment Diagram"
+
+skinparam groupInheritance 2
+skinparam linetype ortho
+
+node "Registreringssystem"  {
+
+    node web [
+    <b>Web interface
+    <i><<Server: NodeJs>>
+    <i><<Framework: Astro>>
+    ....
+    <b>Endpoints:
+    * [<b>https</b>]: web.e-scrapsolutions.dk<sup>*</sup>
+    ]
+
+    node api [
+    <b>RestApi
+    <i><<Server: NodeJS>>
+    <i><<Framework: Express>>
+    ....
+    <b>Endpoints:
+    * [<b>https</b>]: api.e-scrapsolutions.dk
+    ]
+
+    database ds [
+    <b>Database
+    <i><<Server: Mariadb>>
+    ]
+
+}
+
+node "Sorteringssytem" {
+
+    node app [
+    <b>Control Center</b>
+    <i><<Service: Python>>
+    <b>Protocols:
+    * Https
+    ]
+
+    node conver [
+    <b>Converyer belt</b>
+    ]
+    
+    node cam [
+    <b>Camera</b>
+    ]
+
+    node sort [
+    <b>Sorting Boxes</b>
+    ]
+
+}
+
+cloud "Cloud Service" {
+    node reg [
+        <b>Object Recognition Service</b>
+    ]
+}
+
+app <-right-> api: https
+app -down-> conver: direct
+app -down-> cam: direct
+app -down-> sort: direct
+
+web <-down-> api: https
+api <-down-> ds: direct
+
+app -[hidden]down-> sort
+web -[hidden]right-> reg
+app -up-> reg
+
+@enduml

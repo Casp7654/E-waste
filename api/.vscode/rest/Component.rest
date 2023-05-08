@@ -1,0 +1,37 @@
+### GetALL
+GET http://localhost:8080/components HTTP/2.0
+content-type: application/json
+
+###
+
+### Get By ID
+GET http://localhost:8080/components/1 HTTP/2.0
+content-type: application/json
+
+###
+
+### Update By Id
+PUT http://localhost:8080/components/1 HTTP/2.0
+content-type: application/json
+
+{
+    "data": {
+        "weight": 1.00
+    }
+}
+
+###
+
+### Get By Model Id
+GET http://localhost:8080/components/model/1 HTTP/2.0
+content-type: application/json
+
+###
+
+
+### Get By TypeId
+GET http://localhost:8080/components/type/1 HTTP/2.0
+content-type: application/json
+
+###
+

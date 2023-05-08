@@ -1,2 +1,1 @@
-# E-waste
-E-Scrap Solutions projekt: Elektronikaffald
+# Svendeprøve Projekt 2023 Elektronikaffald

@@ -1,0 +1,16 @@
+---
+// Import Module
+import Table from "./../modules/Table.astro";
+
+// Import Types
+import type { TableInfo } from "./../types/TableTypes";
+
+// Set Variables
+const info: TableInfo = {
+  selector: "components-models",
+  description: "Components by model count",
+  endpoint: "/overview/table",
+};
+---
+
+<Table info={info} />

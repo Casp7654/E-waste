@@ -1,0 +1,19 @@
+---
+// Layout
+import DefaultLayout from "./../layouts/DefaultLayout.astro";
+
+// Modules
+import ComponentChart from "./../components/ComponentChart.astro";
+import ComponentTable from "./../components/ComponentTable.astro";
+
+// Page Info
+let page = {
+  title: "Components",
+  link: "/",
+};
+---
+
+<DefaultLayout page={page}>
+  <ComponentChart />
+  <ComponentTable />
+</DefaultLayout>

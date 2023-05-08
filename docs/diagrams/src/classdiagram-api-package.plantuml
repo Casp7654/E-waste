@@ -1,0 +1,42 @@
+@startuml Class diagram - Api: Package Overview
+
+title "Class diagram - Api: Package Overview"
+
+'skinparam groupInheritance 2
+hide circle
+'skinparam linetype ortho
+
+left to right direction
+
+package "Rest Api" <<Rectangle>> {
+    circle "<<Runtime>>"
+
+    package "Express" <<Rectangle>> {
+        class Application <<Service>>
+    }
+
+    package "TypeORM" <<Rectangle>> {
+        class DataSource <<Service>>
+        abstract BaseEntity <<Abstract Entity>>
+
+        DataSource ..> BaseEntity: "<<use>>"
+
+    }
+
+    package "E-Scrap Solutions" <<Rectangle>> {
+        abstract Controllers <<Abstract>>
+        abstract Entities <<Abstract>>
+        abstract ViewModels <<TypeDef>>
+    }
+
+    "<<Runtime>>" ..> Application: "<<use>>"
+    Application ..> Controllers: "<<use>>"
+    Application ..> DataSource: "<<use>>"
+    BaseEntity <.. Entities: "<<is>>"
+    Controllers ..> ViewModels: "<<use>>"
+    Controllers ..> Entities: "<<use>>"
+    Controllers ...> DataSource: "<<use>>"
+    ViewModels <.. Entities: "<<is>>"
+
+}
+@enduml

@@ -1,0 +1,93 @@
+---
+// Dependencies
+import Chart from "chart.js/auto";
+// Import Types
+import type { ChartInfo, ChartConfig } from "./../types/ChartTypes";
+
+// Set Astro Prop interface to type
+interface Props {
+  info: ChartInfo;
+  config: ChartConfig;
+}
+
+// deconstruct Astro Props
+const { info, config } = Astro.props;
+
+// Set Endpoint BaseUrl form environment variables
+const baseUrl: string = `${import.meta.env?.API_PROTOCOL}://${import.meta.env?.API_HOST}:${import.meta.env?.API_PORT}`;
+
+// override endpoint with baseUrl
+info.endpoint = `${baseUrl}${info.endpoint}`;
+---
+
+{/* Client-side Render library of chart */}
+<script is:inline src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+{/* Client-side functions */}
+<script is:inline type="module" define:vars={{ info: info, config: config }}>
+  import { getData } from "./js/lib/apiRequests.js";
+  import { setHeader, updateData } from "./js/ChartFunctions.mjs";
+
+  // Setup Chart
+  const chart = new Chart(info.selector, config);
+
+  // set Execute Function
+  const executeFunction = async (chart) => {
+    const data = await getData(info);
+    //setSpinner(info.selector);
+    setHeader(chart, data.labels);
+    updateData(chart, data.datasets);
+    executeLoop(chart);
+    return;
+  };
+
+  // Set loop function
+  const executeLoop = (chart) =>
+    setTimeout(
+      () => {
+        executeFunction(chart);
+      },
+      (info.refreshInterval || 5) * 1000,
+      chart
+    );
+
+  // Execute
+  executeLoop(chart);
+</script>
+{/* Output Chart */}
+<div id={`${info.selector}-container`} class="card">
+  <div class="card-header">
+    <h3 class="card-title">{info.description}</h3>
+    <div class="card-tools">
+      <div class="input-group">
+        <span class="input-group-prepend">
+          <span class="input-group-text">RefreshRate in seconds</span>
+        </span>
+        <input
+          type="number"
+          class="form-control"
+          value={info.refreshInterval || 5}
+          id={`${info.selector}-container-refreshRate`}
+          style="max-width:100px;"
+        />
+        <span class="input-group-append">
+          <button id={`${info.selector}-container-refreshRate-btn`} class="btn btn-block btn-info">Refresh</button>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <canvas id={info.selector} style={`max-height:${info.maxHeight || "100%"};max-width:100%;`}></canvas>
+  </div>
+  <div class="card-footer"></div>
+</div>
+
+{/* Styling */}
+<style lang="scss">
+  .hidden {
+    display: none;
+  }
+</style>
+
+{/* Ouput error */}
+<span style="display:none;" id={`${info.selector}-error-message`}>Could not get data for chart...</span>
